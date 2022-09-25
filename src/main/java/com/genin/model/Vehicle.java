@@ -7,23 +7,18 @@ import com.genin.service.Logger;
 public abstract class Vehicle {
     private static final int MINIMUM_PRODUCTION_YEAR = 1900;
     private static final int MAXIMUM_PRODUCTION_YEAR = 2022;
+    private static final int MINIMUM_NUMBER_OF_WHEELS = 0;
+    private static final int MAXIMUM_NUMBER_OF_WHEELS = 100;
+    private static final int MINIMUM_SIZE_IN_CENTIMETER = 0;
+    private static final int MAXIMUM_SIZE_IN_CENTIMETER = 10000;
     private final int id;
     private final int productionYear;
     private final String color;
     private final int numberOfWheels;
     private final int sizeInCentimeter;
     private final String owner;
-    private final int minimumNumberOfWheels;
-    private final int maximumNumberOfWheels;
-    private final int minimumSizeInCentimeter;
-    private final int maximumSizeInCentimeter;
 
-    public Vehicle(int productionYear, String color, int numberOfWheels, int sizeInCentimeter, String owner, int minimumNumberOfWheels, int maximumNumberOfWheels, int minimumSizeInCentimeter, int maximumSizeInCentimeter) {
-        this.minimumNumberOfWheels = minimumNumberOfWheels;
-        this.maximumNumberOfWheels = maximumNumberOfWheels;
-        this.minimumSizeInCentimeter = minimumSizeInCentimeter;
-        this.maximumSizeInCentimeter = maximumSizeInCentimeter;
-
+    public Vehicle(int productionYear, String color, int numberOfWheels, int sizeInCentimeter, String owner) {
         String errorMessage = getErrorMessageIfAnyParameterInvalid(productionYear, color, numberOfWheels, sizeInCentimeter, owner);
         if (!errorMessage.isEmpty())
             throw new RuntimeException(Logger.getInstance().generateLogMessage(LogType.ERROR, errorMessage));
@@ -65,12 +60,12 @@ public abstract class Vehicle {
         return color.isEmpty();
     }
 
-    private boolean numberOfWheelsIsInvalid(int numberOfWheels) {
-        return numberOfWheels < minimumNumberOfWheels || numberOfWheels > maximumNumberOfWheels;
+    protected boolean numberOfWheelsIsInvalid(int numberOfWheels) {
+        return numberOfWheels < MINIMUM_NUMBER_OF_WHEELS || numberOfWheels > MAXIMUM_NUMBER_OF_WHEELS;
     }
 
-    private boolean sizeInCentimeterIsInvalid(int sizeInCentimeter) {
-        return sizeInCentimeter < minimumSizeInCentimeter || sizeInCentimeter > maximumSizeInCentimeter;
+    protected boolean sizeInCentimeterIsInvalid(int sizeInCentimeter) {
+        return sizeInCentimeter < MINIMUM_SIZE_IN_CENTIMETER || sizeInCentimeter > MAXIMUM_SIZE_IN_CENTIMETER;
     }
 
     private boolean ownerIsInvalid(String owner) {

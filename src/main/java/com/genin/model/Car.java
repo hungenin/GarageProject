@@ -8,9 +8,19 @@ public class Car extends Vehicle {
     private final CarType type;
 
     public Car(int year, String color, int numberOfWheels, int sizeInCentimeter, String owner, CarType type) {
-        super(year, color, numberOfWheels, sizeInCentimeter, owner, MINIMUM_NUMBER_OF_WHEELS, MAXIMUM_NUMBER_OF_WHEELS, MINIMUM_SIZE_IN_CENTIMETER, MAXIMUM_SIZE_IN_CENTIMETER);
+        super(year, color, numberOfWheels, sizeInCentimeter, owner);
 
         this.type = type;
+    }
+
+    @Override
+    protected boolean numberOfWheelsIsInvalid(int numberOfWheels) {
+        return numberOfWheels < MINIMUM_NUMBER_OF_WHEELS || numberOfWheels > MAXIMUM_NUMBER_OF_WHEELS;
+    }
+
+    @Override
+    protected boolean sizeInCentimeterIsInvalid(int sizeInCentimeter) {
+        return sizeInCentimeter < MINIMUM_SIZE_IN_CENTIMETER || sizeInCentimeter > MAXIMUM_SIZE_IN_CENTIMETER;
     }
 
     @Override
